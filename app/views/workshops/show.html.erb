@@ -1,0 +1,23 @@
+<div class="container mt-4">
+  <div class="col-lg-8">
+    <div class="card shadow">
+      <div class="card-body">
+        <h4 class="card-tittle"><%= @workshop.name%></h4>
+        <div class=row mt-3>
+          <div class="col-lg-7">
+            <h4><span class="badge bg-primary"><%= @workshop.total_duration %></span></h4>
+            <h4><span class="badge bg-primary"><%= @workshop.daily_duration%></span></h4>
+
+          </div>
+          <div class="col-lg-5">
+            <h4>Total Seat: <span class="badge bg-primary"><%= @workshop.total_seat%></span></h4>
+            <h4>remaining Seat: <span class="badge bg-primary"><%= @workshop.remaining_seat%></span></h4>
+            <h4>Registration Fee: <span class="badge bg-primary"><%= @workshop.registration_fee%></span></h4>
+          </div>
+        </div>
+        <p class="lead mt-3 mb-3"><%= @workshop.descrition%></p>
+        <%= link_to "Back", workshops_path, class:"btn btn-outline-danger btn-lg mt-3"%>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  descrition: MyText
+  start_date: 2023-10-21
+  end_date: 2023-10-21
+  start_time: MyString
+  end_time: MyString
+  total_seat: 1
+  remaining_seat: 1
+  registration_fee: 1
+
+two:
+  name: MyString
+  descrition: MyText
+  start_date: 2023-10-21
+  end_date: 2023-10-21
+  start_time: MyString
+  end_time: MyString
+  total_seat: 1
+  remaining_seat: 1
+  registration_fee: 1
