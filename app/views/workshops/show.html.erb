@@ -15,7 +15,7 @@
             <h4>Registration Fee: <span class="badge bg-primary"><%= @workshop.registration_fee%></span></h4>
           </div>
         </div>
-        <p class="lead"><%= truncate(@workshop.descrition, length: 80) %></p>
+        <p class="lead"><%= @workshop.descrition %></p>
         <%= link_to "Back", workshops_path, class:"btn btn-outline-danger btn-lg mt-3"%>
       </div>
     </div>
@@ -23,7 +23,7 @@
   <div class="col-lg-4 mt-4">
     <div class="card shadow mb-3">
       <div class="card-body">
-        <h4 class="card-tittle mb-2"> Reserve Your seat now</h4>
+        <h4 class="card-tittle text-center mb-2"> Reserve Your seat now</h4>
         <%= form_with url: "#", data: {turbo: false } do | form | %>
           <%= form.hidden_field :workshop_id, value: @workshop.id %>
           <div class="form-group">
@@ -46,7 +46,7 @@
             <%= form.number_field :no_if_tickets, class:"form-control", required: true, min: 1, max: @workshop.remaining_seat %>
           </div>
 
-          <h4 class="mt-4 mb-3">Card Details</h4>
+          <h4 class=" text-center mt-4 mb-3">Card Details</h4>
           <hr>
 
           <div class="form-group">

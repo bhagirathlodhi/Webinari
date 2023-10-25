@@ -9,7 +9,7 @@ class Workshop < ApplicationRecord
 	validates :end_date, comparison: { greater_than: :start_date, message: " can not be before start date "}
 
 	def total_duration
-		"From #{start_date} to #{end_date}"
+	  "From #{start_date} to #{end_date}"
 	end
 
 	def daily_workshop_hours
