@@ -18,4 +18,24 @@ class StripeServices
     end
     stripe_customer
   end
+
+  def create_card_token(params)
+    Stripe::Token.create({
+      card: {
+        number: params[:card_number],
+        exp_month: params[:exp_month],
+        exp_year: params[:exp_year],
+        cvc: params[:cvv]
+      }
+    })
+  end
+
+
+ def create_stripe_customer_card(params, stripe_customer)
+  token = create_card_token(params)
+  Stripe::Customer.create_source(
+    stripe_customer.id,
+    { source: token.id }
+  )
+ end
 end
