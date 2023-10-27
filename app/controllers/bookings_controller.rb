@@ -23,8 +23,8 @@ class BookingsController < ApplicationController
     )
     redirect_to workshops_path(@workshop), notice: 'Your ticket has been booked'
 
-  # rescue Stripe::StripeError => error
-  #   redirect_to workshops_path(@workshop), notice: "#{error.message}"
+  rescue Stripe::StripeError => error
+    redirect_to workshops_path(@workshop), notice: "#{error.message}"
   end
 
   private 

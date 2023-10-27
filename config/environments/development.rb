@@ -75,4 +75,7 @@ Rails.application.configure do
 
   Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.delivery_method = :letter_opener_web
+
 end
