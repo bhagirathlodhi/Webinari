@@ -8,11 +8,11 @@
         <div class="row mt-3">
           <div class="col-lg-7">
             <h4><span class="badge bg-primary"><%= @workshop.total_duration %></span></h4>
-            <h4><span class="badge bg-primary"><%= @workshop.daily_duration %></span></h4>
+            <p><span class="badge bg-primary"><%= @workshop.daily_duration %></span></p>
           </div>
           <div class="col-lg-5">
             <h4>Total Sits: <span class="badge bg-primary"><%= @workshop.total_seat %></span></h4>
-            <h4>Remaining Sits: <span class="badge bg-primary"><%= @workshop.remaining_seat %></span></h4>
+            <h4>Remaining Sits: <span class="badge bg-primary"><%= @workshop.seat_count %></span></h4>
             <h4>Registration fee: <span class="badge bg-primary">$ <%= @workshop.registration_fee %></span></h4>
           </div>
         </div>
@@ -28,6 +28,9 @@
       <div class="card-body">
         <h4 class="card-title mb-2">Reserve Your Sit Now!</h4>
         <%= form_with url: :bookings, data: { turbo: false } do |form| %>
+
+          <%= form.hidden_field :workshop_id, value: @workshop.id %>
+
           <div class="form-group">
             <%= form.label :full_name, class: 'mb-2 mt-2' %>
             <%= form.text_field :full_name, class: "form-control", required: true %>
@@ -74,9 +77,45 @@
           </div>
 
           <div class="d-grid gap-2">
-            <%= form.submit 'Book Your Sits Now', class: "btn btn-outline-danger btn-lg mt-3" %>
+            <%= form.submit 'Book Your Sits Now', class: "btn btn-outline-danger btn-lg mt-3", id: "submit-payment"%>
           </div>
         <% end %>
+
+
+        <script src="https://js.stripe.com/v3/"></script>
+        <script>
+          const stripe = Stripe('pk_test_51O5jSDFIVNZxURShf7TRavOiMxtJRIl8b4h0p5DSzOAH8QZEocBNlf92PYmHloU0bhQcA4gpF9ouQMa2mqiXSVf000ywBDrPYY');
+          const elements = stripe.elements();
+
+          const cardElement = elements.create('card');
+          cardElement.mount('#card_number');
+
+          // Handle form submission
+          document.getElementById('submit-payment').addEventListener('click', async function(event) {
+            event.preventDefault();
+
+            // Create a token and send it to your server
+            const { token, error } = await stripe.createToken(cardElement);
+
+            if (error) {
+              // Handle and display the error to the user
+              console.error(error.message); 
+            } else {
+              // Send the token to your server using AJAX
+              fetch('/your-server-endpoint', {
+                method: 'POST',
+                body: JSON.stringify({ stripeToken: token.id }),
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              })
+              .then(response => {
+                // Handle the server response as needed
+              });
+            }
+          });
+        </script>
+
       </div>
     </div>
   </div>

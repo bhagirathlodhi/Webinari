@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   
   
   root 'home#index'
-  resources :workshops, only: %i[index show]
+  resources :workshops, only: %i[index show new create]
   resources :bookings, only: %i[create]
 end

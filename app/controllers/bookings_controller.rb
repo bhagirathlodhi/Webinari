@@ -1,8 +1,8 @@
 class BookingsController < ApplicationController
   def create
-    # debugger
+    debugger
     @stripe_service = StripeService.new
-    @workshop = Workshop.last#find(params[:workshop_id])
+    @workshop = Workshop.find(params[:workshop_id])
     @customer = Customer.find_by(email: params[:email])
     unless @customer.present?
       @customer = Customer.create(costumer_params)

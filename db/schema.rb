@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_27_131317) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_30_123503) do
   create_table "bookings", force: :cascade do |t|
     t.integer "no_of_tickets"
     t.float "amount_paid"
@@ -53,13 +53,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_27_131317) do
     t.text "descrition"
     t.date "start_date"
     t.date "end_date"
-    t.string "start_time"
-    t.string "end_time"
+    t.time "start_time"
+    t.time "end_time"
     t.integer "total_seat"
     t.integer "remaining_seat"
     t.integer "registration_fee"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.time "strat_time"
   end
 
   add_foreign_key "bookings", "customers"
