@@ -1,7 +1,7 @@
 <p style="color: green"><%= notice %></p>
 
-<div class="row">
-  <div class="col-lg-8">
+<div class="row ">
+  <div class="col-lg-8 mx-auto">
     <div class="card shadow mb-3">
       <div class="card-body">
         <h4 class="card-title mb-2"><%= @workshop.name %></h4>
@@ -18,105 +18,26 @@
         </div>
         
         <p class="lead mt-3 mb-3"><%= @workshop.descrition %></p>
+        <%= form_for :booking, url: bookings_path, method: :post do |form| %>
+          <%= form.hidden_field :workshop_id, value: @workshop.id %>
+
+          <%= form.label :no_of_tickets, class:"form-outline" %>
+          <%= form.number_field :no_of_tickets, class:"form-control", min: 1, max: @workshop.remaining_seat %>
+          
+          <div class="d-grid gap-2">
+          <% if @workshop.remaining_seat > 0 %>
+            <%= form.submit 'Book Your seat Now', class: "btn btn-outline-danger btn-lg mt-3", id: "submit-payment"%>
+          <% else %>
+            <p>This workshop is fully booked.</p>
+          <% end %>
+          </div>
+        <% end %>
         <%= link_to "Back to workshops", workshops_path, class: "btn btn-outline-danger btn-lg mt-3" %>
       </div>
     </div>
   </div>
-  <script src="https://js.stripe.com/v3/"></script>
-  <div class="col-lg-4">
-    <div class="card shadow mb-3">
-      <div class="card-body">
-        <h4 class="card-title mb-2">Reserve Your Sit Now!</h4>
-        <%= form_with url: :bookings, data: { turbo: false } do |form| %>
+ 
+  
+        
 
-          <%= form.hidden_field :workshop_id, value: @workshop.id %>
-
-          <div class="form-group">
-            <%= form.label :full_name, class: 'mb-2 mt-2' %>
-            <%= form.text_field :full_name, class: "form-control", required: true %>
-          </div>
-          <div class="form-group">
-            <%= form.label :email, class: 'mb-2 mt-2' %>
-            <%= form.text_field :email, class: "form-control", required: true %>
-          </div>
-          <div class="form-group">
-            <%= form.label :contact_number, class: 'mb-2 mt-2' %>
-            <%= form.text_field :contact_number, class: "form-control" %>
-          </div>
-          <div class="form-group">
-            <%= form.label :no_of_seat_you_want_to_book, class: 'mb-2 mt-2' %>
-            <%= form.number_field :no_of_tikets, class: "form-control", min: 1, max: @workshop.remaining_seat %>
-          </div>
-
-          <h4 class="mt-4 mb-3">Card Details</h4>
-          <hr>
-          <div class="form-group">
-            <%= form.label :card_number, class: 'mb-2 mt-2' %>
-            <%= form.text_field :card_number, class: "form-control", maxlength: 16 %>
-          </div>
-
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="form-group">
-                <%= form.label :cvv, class: 'mb-2 mt-2' %>
-                <%= form.text_field :cvv, class: "form-control", maxlength: 4 %>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="form-group">
-                <%= form.label :month, class: 'mb-2 mt-2' %>
-                <%= form.number_field :exp_month, class: "form-control", min: 1, max: 12 %>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="form-group">
-                <%= form.label :year, class: 'mb-2 mt-2' %>
-                <%= form.number_field :exp_year, class: "form-control", min: 2022, max: 2026 %>
-              </div>
-            </div>
-          </div>
-
-          <div class="d-grid gap-2">
-            <%= form.submit 'Book Your Sits Now', class: "btn btn-outline-danger btn-lg mt-3", id: "submit-payment"%>
-          </div>
-        <% end %>
-
-
-        <script src="https://js.stripe.com/v3/"></script>
-        <script>
-          const stripe = Stripe('pk_test_51O5jSDFIVNZxURShf7TRavOiMxtJRIl8b4h0p5DSzOAH8QZEocBNlf92PYmHloU0bhQcA4gpF9ouQMa2mqiXSVf000ywBDrPYY');
-          const elements = stripe.elements();
-
-          const cardElement = elements.create('card');
-          cardElement.mount('#card_number');
-
-          // Handle form submission
-          document.getElementById('submit-payment').addEventListener('click', async function(event) {
-            event.preventDefault();
-
-            // Create a token and send it to your server
-            const { token, error } = await stripe.createToken(cardElement);
-
-            if (error) {
-              // Handle and display the error to the user
-              console.error(error.message); 
-            } else {
-              // Send the token to your server using AJAX
-              fetch('/your-server-endpoint', {
-                method: 'POST',
-                body: JSON.stringify({ stripeToken: token.id }),
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-              })
-              .then(response => {
-                // Handle the server response as needed
-              });
-            }
-          });
-        </script>
-
-      </div>
-    </div>
-  </div>
-</div>
+      

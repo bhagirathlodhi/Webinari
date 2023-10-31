@@ -1,6 +1,9 @@
 class Workshop < ApplicationRecord
 	has_many :bookings
-	has_many :customers, through: :bookings
+	has_many :users, through: :bookings
+
+	after_create :update_workshop_seat_count
+
 
 	validates :name, :descrition, presence: true
 	validates :start_date, :end_date, :start_time, :end_time, presence: true
@@ -18,5 +21,9 @@ class Workshop < ApplicationRecord
 
 	def daily_duration
 		"Everyday #{start_time} to #{end_time} (#{daily_workshop_hours})"
+	end
+
+	def update_workshop_seat_count
+		Workshop.last.update(remaining_seat: total_seat)
 	end
 end
