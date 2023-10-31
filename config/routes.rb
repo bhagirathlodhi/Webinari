@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   root 'workshops#index'
   resources :workshops, only: %i[index show new create]
   resources :bookings, only: :create
+  resources :payment, only: :create
 end

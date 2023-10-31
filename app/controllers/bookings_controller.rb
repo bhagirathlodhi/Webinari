@@ -2,6 +2,7 @@ class BookingsController < ApplicationController
   def create
     @workshop = Workshop.find(params[:booking][:workshop_id])
     @booking = current_user.bookings.new(booking_params)
+    
     if @booking.save
       flash[:success] = "You have successfully booked the workshop!"
       redirect_to @workshop
