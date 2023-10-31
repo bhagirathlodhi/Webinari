@@ -8,7 +8,6 @@ class WorkshopsController < ApplicationController
   end
 
   def create
-    debugger
     @workshop = Workshop.new(workshop_params)
     if @workshop.save 
       flash[:success] = "Woorkshop Created"
