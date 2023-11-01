@@ -3,19 +3,18 @@ class WorkshopsController < ApplicationController
     @workshops = Workshop.all
   end
 
-  def new 
+  def new
     @workshop = Workshop.new
   end
 
   def create
     @workshop = Workshop.new(workshop_params)
-    if @workshop.save 
-      flash[:success] = "Woorkshop Created"
+    if @workshop.save
+      flash[:success] = 'Woorkshop Created'
       redirect_to workshops_path
     else
       render :new, status: :see_other
     end
-
   end
 
   def show
@@ -24,7 +23,8 @@ class WorkshopsController < ApplicationController
 
   private
 
-    def workshop_params
-      params.require(:workshop).permit(:name, :descrition, :start_date, :end_date, :start_time, :end_time, :total_seat, :remaining_seat, :registration_fee)
-    end
+  def workshop_params
+    params.require(:workshop).permit(:name, :descrition, :start_date, :end_date, :start_time, :end_time, :total_seat,
+                                     :remaining_seat, :registration_fee)
+  end
 end

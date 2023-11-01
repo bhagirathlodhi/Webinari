@@ -4,7 +4,6 @@ class BookingsController < ApplicationController
     @booking = current_user.bookings.new(booking_params)
     
     if @booking.save
-      flash[:success] = "You have successfully booked the workshop!"
       redirect_to @workshop
     else
       flash[:error] = "Booking failed. Please try again."

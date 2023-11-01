@@ -1,19 +1,36 @@
 class PaymentController < ApplicationController
+  # skip_before_action :verify_authenticity_token
+  after_action :notice, only: :create
+  def create
+    begin
+      @workshop = Workshop.find(params[:id])
+      session = Stripe::Checkout::Session.create({
+        payment_method_types: ['card'],
+        line_items: [{
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: @workshop.name,
+            },
+            unit_amount: @workshop.registration_fee,
+          },
+          quantity: 1,
+        }],
+        mode: 'payment',
+        success_url: root_url,
+        cancel_url: root_url,
+      })
 
- def create
-  @session = Stripe::Checkout::Session.create{
+      redirect_to session.url, allow_other_host: true
+      
+    rescue Exception => e
+      e.class 
+    end
+  end  
 
-    payment_method_type: ['card'],
-    line_items:[{
-      name: workshop.name,
-      amount: workshop.registration_fee,
-      currency: "usd",
-      quantity: 1
-    }],
-    mode: "payment",
-    success_url: "https://example.com/success",
-    cancel_url: "https://example.com/cancel"
-  }
+  private
 
- end
+  def notice
+    flash[:success] = "You have successfully booked the workshop!"
+  end
 end

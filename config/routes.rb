@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   resources :workshops, only: %i[index show new create]
   resources :bookings, only: :create
   resources :payment, only: :create
+  post 'payment/done', to: 'payment#payment_completed'
 end
