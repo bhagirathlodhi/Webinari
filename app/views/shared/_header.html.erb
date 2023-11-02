@@ -2,6 +2,12 @@
   <div class="container-fluid">
     <li><a class="navbar-brand" href="<%= workshops_path%>">Workshop</a></li>
     <li class="nav-item"><a class="navbar-brand" href="<%= new_workshop_path%>">New Workshop</a></li>
+    <li>
+      <form class="search" action="<%= search_path %>" method="get">
+        <input class="searchinput" type="text"  name="q" placeholder="Search" aria-label="Search">
+        <button class="searchbutton" type="submit"><i class="bi bi-search"></i></button>
+      </form>
+    </li>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">

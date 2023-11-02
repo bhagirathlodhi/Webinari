@@ -21,6 +21,11 @@ class WorkshopsController < ApplicationController
     @workshop = Workshop.find(params[:id])
   end
 
+  def search
+    q = params[:q]
+    @workshop = Workshop.where('name LIKE ?', "%#{q}%")
+  end
+
   private
 
   def workshop_params

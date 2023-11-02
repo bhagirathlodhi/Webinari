@@ -1,0 +1,6 @@
+
+<% @workshop.each do |workshop|%>
+  <ul>
+  <%= link_to workshop.name, workshop_path(workshop), class:"li"%>
+  </ul>
+<% end %>
