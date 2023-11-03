@@ -23,7 +23,7 @@ class WorkshopsController < ApplicationController
 
   def search
     q = params[:q]
-    @workshop = Workshop.where('name LIKE ?', "%#{q}%")
+    @workshops = Workshop.where('name LIKE ?', "%#{q}%")
   end
 
   private

@@ -11,6 +11,10 @@ class BookingsController < ApplicationController
     end
   end
 
+  def all_booking
+    @bookings = current_user.bookings.all
+  end
+
   private
 
   def booking_params

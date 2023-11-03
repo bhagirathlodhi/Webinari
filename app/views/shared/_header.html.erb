@@ -1,20 +1,36 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-info">
   <div class="container-fluid">
     <li><a class="navbar-brand" href="<%= workshops_path%>">Workshop</a></li>
-    <% if user_signed_in? %>
-      <% if is_admin? %>
-        <li class="nav-item"><a class="navbar-brand" href="<%= new_workshop_path%>">New Workshop</a></li>
-      <% end %>
-      <li>
-        <form class="search" action="<%= search_path %>" method="get">
-          <input class="searchinput" type="text"  name="q" placeholder="Search" aria-label="Search">
-          <button class="searchbutton" type="submit"><i class="bi bi-search"></i></button>
-        </form>
-      </li>
+    <li>
+      <form class="search" action="<%= search_path %>" method="get">
+        <input class="searchinput" type="text"  name="q" placeholder="Search" aria-label="Search">
+        <button class="searchbutton" type="submit"><i class="bi bi-search"></i></button>
+      </form>
+    </li>
+    <% if user_signed_in? && is_admin? %>
+      <li class="nav-item"><a class="navbar-brand" href="<%= new_workshop_path%>">New Workshop</a></li>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item" >
+          <a class="navbar-brand" aria-current="page" href="<%= root_path %>">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">  
+            <%= current_user.email %>      
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><%= button_to "Log Out", destroy_user_session_path, class: "dropdown-item", method: :delete %></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+          </ul>
+        </li>
+        </ul>
+      </div>
+    <%elsif user_signed_in?%>
+     
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="<%= root_path %>">Home</a>
+            <a class="nav-link active" aria-current="page" href="<%= show_bookings_path %>">My Booking</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">  

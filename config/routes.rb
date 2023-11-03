@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   resources :payment, only: :create
   post 'payment/done', to: 'payment#payment_completed'
   get 'search', to: 'workshops#search'
+  get "show/bookings", to: 'bookings#all_booking'
 end
