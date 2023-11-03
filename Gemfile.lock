@@ -199,6 +199,7 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.2.6)
+    rolify (6.0.1)
     rubyzip (2.3.2)
     selenium-webdriver (4.14.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -259,6 +260,7 @@ DEPENDENCIES
   letter_opener_web (~> 2.0)
   puma (~> 5.0)
   rails (~> 7.0.8)
+  rolify (~> 6.0, >= 6.0.1)
   selenium-webdriver
   sprockets-rails
   sqlite3 (~> 1.4)
