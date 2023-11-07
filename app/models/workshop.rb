@@ -26,4 +26,8 @@ class Workshop < ApplicationRecord
 	def update_workshop_seat_count
 		Workshop.last.update(remaining_seat: total_seat)
 	end
+
+	def workshop_taken
+		start_date > Date.today
+	end
 end

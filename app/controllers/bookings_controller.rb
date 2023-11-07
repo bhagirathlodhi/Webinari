@@ -20,5 +20,6 @@ class BookingsController < ApplicationController
   def booking_params
     params.require(:booking).permit(:no_of_tickets).merge(workshop_id: params[:booking][:workshop_id])
   end
+  
     
 end
