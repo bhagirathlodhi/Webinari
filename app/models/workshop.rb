@@ -1,4 +1,7 @@
 class Workshop < ApplicationRecord
+	extend FriendlyId
+  friendly_id :name, use: :slugged
+	
 	has_many :bookings, dependent: :destroy
 	has_many :users, through: :bookings
 
@@ -11,6 +14,9 @@ class Workshop < ApplicationRecord
 	numericality: true
 	validates :end_date, comparison: { greater_than: :start_date, message: " can not be before start date "}
 
+	scope :upcoming_workshops, ->{ where('start_date >= ?', Date.today) }
+	scope :past_workshops, ->{ where( 'end_date <= ?', Date.today ) }
+
 	def total_duration
 	  "From #{start_date} to #{end_date}"
 	end
@@ -20,7 +26,7 @@ class Workshop < ApplicationRecord
 	end
 
 	def daily_duration
-		"Everyday #{start_time} to #{end_time} (#{daily_workshop_hours})"
+		"Everyday #{start_time.strftime("%H:%M")} to #{end_time.strftime("%H:%M")} (#{daily_workshop_hours})"
 	end
 
 	def update_workshop_seat_count

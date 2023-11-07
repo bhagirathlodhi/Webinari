@@ -5,9 +5,10 @@ Rails.application.routes.draw do
   
   root 'workshops#index'
   resources :workshops, only: %i[index show new create ]
-  resources :bookings, only: :create
-  resources :payment, only: :create
-  post 'payment/done', to: 'payment#payment_completed'
+  resources :bookings, only: %i[create]
+  post 'payment_completed', to: 'bookings#payment_completed'
+  
+  
   get 'search', to: 'workshops#search'
   get "show/bookings", to: 'bookings#all_booking'
 end

@@ -1,1 +1,41 @@
-<%= render 'show'%>
+<p style = "color:green"><%= notice %></p>
+
+<div class="row ">
+  <div class="col-lg-8 mx-auto">
+    <div class="card shadow mb-3">
+      <div class="card-body">
+        <h4 class="card-title mb-2"><%= @workshop.name %></h4>
+        <div class="row mt-3">
+          <div class="col-lg-7">
+            <h4><span class="badge bg-info"><%= @workshop.total_duration %></span></h4>
+            <p><span class="badge bg-info"><%= @workshop.daily_duration %></span></p>
+          </div>
+          <div class="col-lg-5">
+            <h4>Total Seats: <span class="badge bg-info"><%= @workshop.total_seat %></span></h4>
+            <h4>Remaining Seats: <span class="badge bg-info"><%= @workshop.remaining_seat %></span></h4>
+            <h4>Registration Fees: <span class="badge bg-info">$ <%= @workshop.registration_fee %></span></h4>
+          </div>
+        </div>
+        
+        <p class="lead mt-3 mb-3"><%= @workshop.descrition %></p>
+        <%= form_with(url: "/bookings", model: @booking, method: :post, data: {turbo: false}) do |form| %>
+          <%= form.hidden_field :workshop_id, value: @workshop.id %>
+
+          <div class="d-grid gap-2">
+            <% if @workshop.remaining_seat > 0 &&  @workshop.workshop_taken %>
+            <%= form.label :how_many_seat_you_want_to_book, class:"form-outline text-center" %>
+            <%= form.number_field :no_of_tickets, min: 1, max: @workshop.remaining_seat, class:"form-cntrol" %>
+            <%= form.submit "book now", class:"btn btn-success"%>
+          <% else %>
+            <span>This Workshop is closed.</span>
+          <% end %>
+            </div>
+        <% end %>
+        
+    </div>
+  </div>
+ 
+  
+        
+
+      

@@ -85,4 +85,6 @@ gem "devise", "~> 4.9"
 gem 'rolify', '~> 6.0', '>= 6.0.1'
 gem 'faker'
 
+gem 'friendly_id', '~> 5.5'
+
 

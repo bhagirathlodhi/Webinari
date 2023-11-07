@@ -10,7 +10,7 @@ class WorkshopsController < ApplicationController
   def create
     @workshop = Workshop.new(workshop_params)
     if @workshop.save
-      flash[:success] = 'Woorkshop Created'
+      flash[:notice] = 'Woorkshop Created'
       redirect_to workshops_path
     else
       render :new, status: :see_other
@@ -18,7 +18,7 @@ class WorkshopsController < ApplicationController
   end
 
   def show
-    @workshop = Workshop.find(params[:id])
+    @workshop = Workshop.friendly.find(params[:id])
   end
 
   def search

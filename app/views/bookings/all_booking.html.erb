@@ -9,6 +9,7 @@
               <p class="lead"><%= truncate(booking.workshop.descrition, length: 80) %></p>
               <strong><span><%= booking.workshop.total_duration %></strong>
               <h6><span class="badge bg-success"><%= booking.workshop.daily_duration %></h6>
+              <%= link_to 'View Details', workshop_path(booking.workshop), class:"btn btn-info btn lg" %>
             </div>
           </div>
         </div>

@@ -9,12 +9,12 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
-  <%= render "shared/header" %>
+  
   <body>
-    <div class="container mt-3 text-center">
-      <% flash.each do |message_type, message| %>
-        <div class="alert alert-<%= message_type %>"><%= message %></div>
-      <% end %>
+    <%= render "shared/header" %>
+    
+    <div class="container mt-3">
+    <%= render "shared/flash" %>
       <%= yield %>
     </div>
   </body>
