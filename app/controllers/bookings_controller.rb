@@ -32,9 +32,10 @@ class BookingsController < ApplicationController
           quantity: 1,
         }],
         mode: 'payment',
-        success_url: root_url,
+        success_url: "#{root_url}/show/bookings",
         cancel_url: root_url
       })
+      flash[:success] = "You have successfully book & you will get mail with all details"
 
       redirect_to session.url, allow_other_host: true
       
@@ -46,7 +47,7 @@ class BookingsController < ApplicationController
   def payment_completed
     payload= request.body.read
     event= nil
-    endpoint_secret= 'whsec_zj3T0ds0ir0JguPKPVLbogowvAS7KHZr'
+    endpoint_secret= 'whsec_73Sqt6wdkYCCZnrBDVzY47YdV1t3IhYi'
     sig_header = request.env['HTTP_STRIPE_SIGNATURE']
     begin
       event = Stripe::Webhook.construct_event(payload, sig_header, endpoint_secret)
@@ -62,19 +63,12 @@ class BookingsController < ApplicationController
         @user= session.metadata.user_id
         @workshop_id = session.metadata.workshop_id
         @no_of_tickets = session.metadata.no_of_tickets
-        @booking = Booking.new(no_of_tickets: @no_of_tickets, workshop_id: @workshop_id, user_id: @user)
-       
-        if @booking.save
-          flash[:danger] = "You have successfully booked the workshop!"
-          redirect_to root_path
-        else
-          
-          redirect_to root_path
-        end
-      else
-        flash[:danger] = "You have successfully booked the workshop!"
-        puts 'Unhandled event type: #{event.type}'
+        @booking = Booking.create(no_of_tickets: @no_of_tickets, workshop_id: @workshop_id, user_id: @user)
+        BookingsMailer.success_booking(@booking).deliver_now
       end
+    end
+
+    def success
     end
 
   private

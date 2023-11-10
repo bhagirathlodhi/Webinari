@@ -13,3 +13,6 @@ $(".input_text").focus(function(){
   $(".input_text").focusout(function(){
     $(this).prev('.fa').removeclass('glowIcon')
   })
+
+ 
+ 

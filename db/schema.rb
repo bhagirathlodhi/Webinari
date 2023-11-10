@@ -1,22 +1,13 @@
-# This file is auto-generated from the current state of the database. Instead
-# of editing this file, please use the migrations feature of Active Record to
-# incrementally modify your database, and then regenerate this schema definition.
-#
-# This file is the source Rails uses to define your schema when running `bin/rails
-# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
-# be faster and is potentially less error prone than running all of your
-# migrations from scratch. Old migrations may fail to apply correctly if those
-# migrations use external dependencies or application code.
-#
-# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_07_111626) do
+
+ActiveRecord::Schema[7.0].define(version: 2023_11_10_064554) do
   create_table "bookings", force: :cascade do |t|
     t.integer "no_of_tickets"
     t.integer "user_id", null: false
     t.integer "workshop_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "order_number"
     t.index ["user_id"], name: "index_bookings_on_user_id"
     t.index ["workshop_id"], name: "index_bookings_on_workshop_id"
   end
@@ -30,6 +21,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_111626) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "refunds", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "booking_id", null: false
+    t.integer "no_of_tickets"
+    t.string "state"
+    t.string "stripe_refund_id"
+    t.boolean "is_partial_refund"
+    t.float "amount_refunded"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_refunds_on_booking_id"
+    t.index ["user_id"], name: "index_refunds_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -79,11 +84,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_111626) do
     t.integer "registration_fee"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.time "strat_time"
     t.string "slug"
     t.index ["slug"], name: "index_workshops_on_slug", unique: true
   end
 
   add_foreign_key "bookings", "users"
   add_foreign_key "bookings", "workshops"
+  add_foreign_key "refunds", "bookings"
+  add_foreign_key "refunds", "users"
 end

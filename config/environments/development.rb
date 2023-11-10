@@ -77,6 +77,8 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.delivery_method = :letter_opener_web
-  config.hosts << "03ac-60-254-111-210.ngrok-free.app"
+  config.action_mailer.perform_caching = false
+
+  config.hosts << "ded9-60-254-111-210.ngrok-free.app"
 
 end

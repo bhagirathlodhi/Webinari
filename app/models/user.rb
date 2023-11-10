@@ -2,7 +2,7 @@ class User < ApplicationRecord
   rolify
   has_many :bookings
 	has_many :Workshops, through: :bookings 
-
+  has_many :refunds
   
 
   # Include default devise modules. Others available are:

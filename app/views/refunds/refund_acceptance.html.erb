@@ -1,0 +1,25 @@
+<div class="row">
+
+  <div class="col-lg-6 mt-5">
+    <div class="card shadow">
+      <div class="card-body">
+        <h4> Your Booking Details </h4>
+        <p class="lead"> <strong> Booking For :</strong>
+          <%= link_to @refund.booking.workshop.name, @refund.booking.workshop, target: '_blank' %>
+        </p>
+        
+        <p class="lead"> <strong> total tickets booked :</strong>
+          <%= @refund.booking.no_of_tickets %>
+        </p>
+
+        <p class="lead"> <strong>total amount paid :</strong>
+          <%= @refund.booking.no_of_tickets * @refund.booking.workshop.registration_fee  %>
+        </p>
+
+        <p class="lead"> <strong> Booking Date :</strong>
+          <%= @refund.booking.created_at.strftime("%d, %a, %B, %Y") %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

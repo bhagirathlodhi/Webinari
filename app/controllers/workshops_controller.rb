@@ -30,6 +30,6 @@ class WorkshopsController < ApplicationController
 
   def workshop_params
     params.require(:workshop).permit(:name, :descrition, :start_date, :end_date, :start_time, :end_time, :total_seat,
-                                     :remaining_seat, :registration_fee)
+                                     :registration_fee)
   end
 end

@@ -23,9 +23,12 @@
 
           <div class="d-grid gap-2">
             <% if @workshop.remaining_seat > 0 &&  @workshop.workshop_taken %>
+
             <%= form.label :how_many_seat_you_want_to_book, class:"form-outline text-center" %>
             <%= form.number_field :no_of_tickets, min: 1, max: @workshop.remaining_seat, class:"form-cntrol" %>
+
             <%= form.submit "book now", class:"btn btn-success"%>
+            
           <% else %>
             <span>This Workshop is closed.</span>
           <% end %>
